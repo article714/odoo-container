@@ -32,7 +32,7 @@ test_image:
   tags:
     - docker
   script:
-    - runsvdir &
+    - runsvdir -P $SVDIR &
     - sleep 5
     - redis-cli -h 127.0.0.1 -p 6380 ping
     
