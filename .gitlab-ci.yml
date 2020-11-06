@@ -1,0 +1,37 @@
+stages:
+  - build
+  - tests
+  - publish_images
+
+variables:
+  ODOO_CONTAINER_VERSION: '11.0.4'
+
+#-----------------------------------------
+build_image:
+  stage: build
+  tags:
+    - shell
+  variables:
+    BUILD_OPTS: '--force-rm --no-cache'
+  script:
+    - docker build ${BUILD_OPTS} -t article714/odoo-container:${ODOO_CONTAINER_VERSION}  --build-arg ODOO_CONTAINER_VERSION=${ODOO_CONTAINER_VERSION} .
+
+#------------------------------------------
+# QCheck (TODO)
+
+#------------------------------------------
+# Tests
+
+test_image:
+  stage: tests
+  image:
+    name: article714/odoo-container:${ODOO_CONTAINER_VERSION}
+  services:
+    - name: article714/odoo-container:${ODOO_CONTAINER_VERSION}
+      alias: odoo-srv
+  tags:
+    - docker
+  script:
+    # wait for bindns to be fully fit
+    - echo "TODO"
+
