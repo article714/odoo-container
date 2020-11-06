@@ -1,0 +1,19 @@
+#!/bin/sh
+exec 2>&1
+
+# Directories and init
+mkdir -p /etc/rsyslog
+touch /var/log/syslog
+touch /var/log/cron.log
+touch /var/log/daemon.log
+touch /var/log/redis
+chown -R root.syslog /var/log
+chmod -R g+rw /var/log/
+if [ ! -d /var/run/rsyslog ]; then
+    mkdir -p /var/run/rsyslog
+    [ -z "syslog" ] || chown -R "syslog" /var/run/rsyslog
+    [ -z "syslog" ] || chgrp -R "syslog" /var/run/rsyslog
+fi
+umask 077
+# Run daeomon
+exec /usr/sbin/rsyslogd -n -f /container/config/rsyslog.conf -iNONE

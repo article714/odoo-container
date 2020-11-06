@@ -1,0 +1,6 @@
+#!/bin/sh
+exec 2>&1
+
+if [ ! -f /var/log/redis ]; then
+    touch /var/log/redis
+exec redis-server /container/config/redis/redis.conf
