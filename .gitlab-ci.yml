@@ -33,5 +33,5 @@ test_image:
     - docker
   script:
     - sleep 5
-    - redis-cli 127.0.0.1:6080 ping
+    - redis-cli 127.0.0.1:6080> ping
 
