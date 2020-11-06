@@ -4,5 +4,6 @@
 # Dependencies from OCA
 
 queue
+reporting-engine
 server-tools
 web

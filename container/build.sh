@@ -14,18 +14,32 @@ LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -qy --no-install-recomme
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 apt-get update
+apt-get upgrade -yq
 
 apt-get install -y --no-install-recommends \
+    apt-transport-https \
     ca-certificates \
+    cups-client \
     curl \
     dialog \
     dirmngr \
     fonts-noto-cjk \
+    gcc \
     git \
     gnupg \
+    gnupg-agent \
+    libssl-dev \
+    libcups2-dev \
+    libmariadbclient-dev \
+    libreoffice-calc \
+    libreoffice-writer \
+    libcups2-dev \
     nodejs \
     node-less \
     npm \
+    python3-configobj \
+    python3-dev \
+    python3-numpy \
     python3-pip \
     python3-pyldap \
     python3-qrcode \
@@ -35,8 +49,8 @@ apt-get install -y --no-install-recommends \
     python3-vobject \
     python3-watchdog \
     python3-wheel \
-    redis \
-    python3-redis \
+    redis software-properties-common \
+    wget \
     wkhtmltopdf \
     xz-utils
 
@@ -65,7 +79,7 @@ adduser --system --home /var/lib/odoo --gid 1001 --uid 1001 --quiet odoo
 adduser odoo syslog
 
 # Install Odoo
-export ODOO_VERSION=11.0
+export ODOO_VERSION=12.0
 export ODOO_RELEASE=latest
 
 curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb
@@ -80,7 +94,7 @@ mkdir -p /home/odoo/addons
 cp /container/config/odoo/modules_dependencies.txt /home/odoo/addons
 
 cd /home/odoo/addons
-python3 /container/tools/clone_dependencies.py /home/odoo/addons 11.0
+python3 /container/tools/clone_dependencies.py /home/odoo/addons ${ODOO_VERSION}
 chown -R odoo. /home/odoo
 chmod -R 770 /home/odoo
 cd /

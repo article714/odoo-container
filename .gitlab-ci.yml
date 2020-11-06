@@ -4,7 +4,7 @@ stages:
   - publish_images
 
 variables:
-  ODOO_CONTAINER_VERSION: '11.0.4'
+  ODOO_CONTAINER_VERSION: '12.0.4'
 
 #-----------------------------------------
 build_image:
