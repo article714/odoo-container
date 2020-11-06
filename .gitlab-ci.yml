@@ -32,6 +32,6 @@ test_image:
   tags:
     - docker
   script:
-    # wait for bindns to be fully fit
-    - echo "TODO"
+    - sleep 5
+    - redis-cli 127.0.0.1:6080 ping
 
