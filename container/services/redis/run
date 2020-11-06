@@ -1,5 +1,4 @@
 #!/bin/sh
 exec 2>&1
 
-if []
 exec redis-server /container/config/redis/redis/conf
