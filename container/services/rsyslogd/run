@@ -2,12 +2,15 @@
 exec 2>&1
 
 # Directories and init
-mkdir -p /etc/rsyslog
+chown root.syslog /var/log
 touch /var/log/syslog
+chgrp -R "syslog" /var/log/syslog
 touch /var/log/cron.log
+chgrp -R "syslog" /var/log/cron.log
 touch /var/log/daemon.log
-touch /var/log/redis
-chown -R root.syslog /var/log
+chgrp -R "syslog" /var/log/daemon.log
+chmod -R g+rw /var/log/
+chgrp -R syslog /var/log
 chmod -R g+rw /var/log/
 if [ ! -d /var/run/rsyslog ]; then
     mkdir -p /var/run/rsyslog
