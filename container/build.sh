@@ -26,6 +26,7 @@ apt-get install -y --no-install-recommends \
     nodejs \
     node-less \
     npm \
+    python3-dev \
     python3-pip \
     python3-pyldap \
     python3-qrcode \
