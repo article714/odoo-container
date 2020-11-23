@@ -14,8 +14,10 @@ LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -qy --no-install-recomme
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 apt-get update
+apt-get upgrade -yq
 
 apt-get install -y --no-install-recommends \
+    apt-transport-https \
     ca-certificates \
     curl \
     dialog \
@@ -26,7 +28,9 @@ apt-get install -y --no-install-recommends \
     nodejs \
     node-less \
     npm \
+    python3-configobj \
     python3-dev \
+    python3-numpy \
     python3-pip \
     python3-pyldap \
     python3-qrcode \
@@ -36,8 +40,9 @@ apt-get install -y --no-install-recommends \
     python3-vobject \
     python3-watchdog \
     python3-wheel \
-    redis \
+    redis software-properties-common \
     python3-redis \
+    wget \
     wkhtmltopdf \
     xz-utils
 
@@ -65,6 +70,9 @@ addgroup --gid 1001 odoo
 adduser --system --home /var/lib/odoo --gid 1001 --uid 1001 --quiet odoo
 adduser odoo syslog
 
+chown -R odoo. /home/odoo
+chmod -R 770 /home/odoo
+
 # Install Odoo
 export ODOO_VERSION=11.0
 export ODOO_RELEASE=latest
@@ -78,12 +86,12 @@ rm -rf /var/lib/apt/lists/* odoo.deb
 # install Odoo dependencies
 
 mkdir -p /home/odoo/addons
+chmod -R odoo. /home/odoo/addons
+chmog ug+s /home/odoo/addons
 cp /container/config/odoo/modules_dependencies.txt /home/odoo/addons
 
 cd /home/odoo/addons
-python3 /container/tools/clone_dependencies.py /home/odoo/addons 11.0
-chown -R odoo. /home/odoo
-chmod -R 770 /home/odoo
+python3 /container/tools/clone_dependencies.py /home/odoo/addons ${ODOO_VERSION}
 cd /
 
 # Copy Odoo configuration file
@@ -92,8 +100,10 @@ chgrp -R odoo /container/config/odoo
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 mkdir -p /mnt/extra-addons
 chown -R odoo /mnt/extra-addons
+chmog g+s /var/lib/odoo
 mkdir -p /var/lib/odoo
 chown -R odoo /var/lib/odoo
+chmog ug+s /var/lib/odoo
 
 #--
 # Cleaning
