@@ -78,6 +78,9 @@ addgroup --gid 1001 odoo
 adduser --system --home /var/lib/odoo --gid 1001 --uid 1001 --quiet odoo
 adduser odoo syslog
 
+chown -R odoo. /home/odoo
+chmod -R 770 /home/odoo
+
 # Install Odoo
 export ODOO_VERSION=12.0
 export ODOO_RELEASE=latest
@@ -91,12 +94,12 @@ rm -rf /var/lib/apt/lists/* odoo.deb
 # install Odoo dependencies
 
 mkdir -p /home/odoo/addons
+chmod -R odoo. /home/odoo/addons
+chmog ug+s /home/odoo/addons
 cp /container/config/odoo/modules_dependencies.txt /home/odoo/addons
 
 cd /home/odoo/addons
 python3 /container/tools/clone_dependencies.py /home/odoo/addons ${ODOO_VERSION}
-chown -R odoo. /home/odoo
-chmod -R 770 /home/odoo
 cd /
 
 # Copy Odoo configuration file
@@ -105,8 +108,10 @@ chgrp -R odoo /container/config/odoo
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 mkdir -p /mnt/extra-addons
 chown -R odoo /mnt/extra-addons
+chmog g+s /var/lib/odoo
 mkdir -p /var/lib/odoo
 chown -R odoo /var/lib/odoo
+chmog ug+s /var/lib/odoo
 
 #--
 # Cleaning
