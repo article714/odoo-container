@@ -78,8 +78,10 @@ addgroup --gid 1001 odoo
 adduser --system --home /var/lib/odoo --gid 1001 --uid 1001 --quiet odoo
 adduser odoo syslog
 
+mkdir -p /home/odoo
 chown -R odoo. /home/odoo
 chmod -R 770 /home/odoo
+chmog ug+s /home/odoo
 
 # Install Odoo
 export ODOO_VERSION=12.0
