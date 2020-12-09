@@ -56,7 +56,6 @@ gpgconf --kill all
 rm -rf "$GNUPGHOME"
 apt-get update
 apt-get install -y postgresql-client
-rm -rf /var/lib/apt/lists/*
 
 # update wkhtmltopdf (issues with reports)
 apt-get remove -qy wkhtmltopdf
@@ -91,7 +90,7 @@ curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_$
 dpkg --force-depends -i odoo.deb
 apt-get update
 apt-get -y install -f --no-install-recommends
-rm -rf /var/lib/apt/lists/* odoo.deb
+rm -rf odoo.deb
 
 # install Odoo dependencies
 
