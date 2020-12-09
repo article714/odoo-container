@@ -94,8 +94,8 @@ rm -rf /var/lib/apt/lists/* odoo.deb
 # install Odoo dependencies
 
 mkdir -p /home/odoo/addons
-chmod -R odoo. /home/odoo/addons
-chmog ug+s /home/odoo/addons
+chown -R odoo. /home/odoo/addons
+chmod ug+s /home/odoo/addons
 cp /container/config/odoo/modules_dependencies.txt /home/odoo/addons
 
 cd /home/odoo/addons
