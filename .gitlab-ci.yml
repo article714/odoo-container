@@ -12,7 +12,7 @@ build_image:
   tags:
     - shell
   variables:
-    BUILD_OPTS: '--force-rm --no-cache'
+    BUILD_OPTS: '--network=internal_bridge --force-rm --no-cache'
   script:
     - docker build ${BUILD_OPTS} -t article714/odoo-container:${ODOO_CONTAINER_VERSION}  --build-arg ODOO_CONTAINER_VERSION=${ODOO_CONTAINER_VERSION} .
 
