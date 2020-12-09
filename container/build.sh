@@ -59,12 +59,13 @@ apt-get install -y postgresql-client
 rm -rf /var/lib/apt/lists/*
 
 # update wkhtmltopdf (issues with reports)
-apt-get remove wkhtmltopdf
+apt-get remove -qy wkhtmltopdf
 apt-get install -qy libfontenc1 xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils
 wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb
-dpkg -i wkhtmltox_0.12.6-1.buster_amd64.deb
+dpkg --force-depends -i wkhtmltox_0.12.6-1.buster_amd64.deb
+apt-get -y install -f --no-install-recommends
 apt --fix-broken install
-dpkg -i wkhtmltox_0.12.6-1.buster_amd64.deb
+rm -f wkhtmltox_0.12.6-1.buster_amd64.deb
 
 # Install rtlcss
 npm install -g rtlcss
